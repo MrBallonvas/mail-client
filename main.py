@@ -164,7 +164,7 @@ class GUI(object):
         self.send = tk.Button(self.treeviewFrameCont, text='Send', command=self.send)
         self.send.grid(row=3, column=0)
 
-        self.printButton = tk.Button(self.mainFrame2, text='print boxes', command=self.getLetters)
+        self.printButton = tk.Label(self.mainFrame2, text='Not worked\nDo it')
         self.printButton.pack()
 
         self.treeviewFrameCont2 = tk.Frame(self.mainFrame2)
@@ -178,16 +178,6 @@ class GUI(object):
         self.tree2.grid(row=0, column=0)
         ysb.grid(row=0, column=1, sticky=tk.N + tk.S)
 
-    def getLetters(self):
-        data = self.getDataIntoDB()
-        print(data)
-        mail = imaplib.IMAP4_SSL(data[4])
-        mail.login(data[1], data[2])
-        mail.list()
-
-        for i in mail.list():
-            self.tree2.insert("", tk.END, values=i)
-        self.tree2.bind("<<TreeviewSelect>>", self.print_selection)
 
     def print_selection(self, event):
         for selection in self.tree2.selection():
